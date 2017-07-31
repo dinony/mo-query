@@ -19,7 +19,6 @@
   "author": "Onur Dogangönül",
   "license": "MIT",
   "devDependencies": {
-    "babel-plugin-external-helpers": "^6.22.0",
     "babel-preset-latest": "^6.24.1",
     "eslint": "^4.3.0",
     "pretty-bytes": "^4.0.2",
