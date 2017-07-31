@@ -9,9 +9,9 @@ const rollup = require('rollup')
 const zlib = require('zlib')
 const rimraf = require('rimraf')
 const prettyBytes = require('pretty-bytes')
-const version = process.env.VERSION || require('../package.json').version
+const pkg = require('../package.json')
 
-const banner = `// mo-query v${version}, Copyright (c) ${new Date().getFullYear()} Onur Dogangönül, The MIT License`
+const banner = `// mo-query v${pkg.version}, Copyright (c) ${new Date().getFullYear()} ${pkg.author}, ${pkg.license}`
 
 rimraf.sync('dist')
 fs.mkdirSync('dist')
@@ -46,16 +46,18 @@ const uglifyConf = {output: {ascii_only: true}};
 })).forEach(c => {
   rollup.rollup(c).then(bundle => bundle.generate(c))
     .then(({code}) => {
+      const appendBanner = c => `${banner}\n${c}`
+
       if(isProd(c.dest)) {
         const uglified = uglify.minify(code, uglifyConf).code
-        writeFile(c.dest, `${banner}\n${uglified}`, true)
+        writeFile(c.dest, appendBanner(uglified), true)
 
         const zipped = zlib.gzipSync(uglified)
 
         // eslint-disable-next-line no-console
         console.log(`${relPath(c.dest)} ${prettyBytes(uglified.length)} (gzipped: ${prettyBytes(zipped.length)})`)
       } else {
-        writeFile(c.dest, `${banner}\n${code}`)
+        writeFile(c.dest, appendBanner(code))
 
         // eslint-disable-next-line no-console
         console.log(`${relPath(c.dest)} ${prettyBytes(code.length)}`)
