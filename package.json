@@ -1,6 +1,6 @@
 {
   "name": "mo-query",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "",
   "main": "dist/mo-query.cjs.js",
   "module": "dist/mo-query.esm.js",
