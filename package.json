@@ -2,11 +2,14 @@
   "name": "mo-query",
   "version": "0.0.1",
   "description": "",
-  "main": "index.js",
+  "main": "dist/mo-query.cjs.js",
+  "module": "dist/mo-query.esm.js",
+  "unpkg": "dist/mo-query.js",
   "scripts": {
     "build": "node build/build.js",
     "lint": "eslint src"
   },
+  "files": ["dist/*.js", "dist/*.js.map"],
   "keywords": [],
   "author": "Onur D. <contact@dinony.com>",
   "license": "MIT",
