@@ -20,15 +20,6 @@ const isProd = filename => /min\.js$/.test(filename)
 const resolve = _path => path.resolve(__dirname, '../', _path)
 const relPath = _path => path.relative(process.cwd(), _path)
 
-const writeFile = (dest, code) =>
-  (new Promise((resolve, reject) => {
-    fs.writeFile(dest, code, err => {
-      if(err) return reject(err)
-
-      return resolve(code)
-    })
-  }))
-
 const uglifyConf = {};
 
 [
@@ -50,14 +41,14 @@ const uglifyConf = {};
 
       if(isProd(c.dest)) {
         const uglified = uglify.minify(code, uglifyConf).code
-        writeFile(c.dest, appendBanner(uglified), true)
+        fs.writeFileSync(c.dest, appendBanner(uglified))
 
         const zipped = zlib.gzipSync(uglified)
 
         // eslint-disable-next-line no-console
         console.log(`${relPath(c.dest)} ${prettyBytes(uglified.length)} (gzipped: ${prettyBytes(zipped.length)})`)
       } else {
-        writeFile(c.dest, appendBanner(code))
+        fs.writeFileSync(c.dest, appendBanner(code))
 
         // eslint-disable-next-line no-console
         console.log(`${relPath(c.dest)} ${prettyBytes(code.length)}`)
