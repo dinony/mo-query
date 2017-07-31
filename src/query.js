@@ -85,12 +85,9 @@ const prepareQuery = query => {
   return query
 }
 
-// :)
-const analyze = query => true
-const optimize = query => query
 const gen = query => reduce(query, (accum, right, left) => accum.concat(handleSubquery({[left]:right})), [])
 
-export const compile = query => {
+export const compile = (query, analyze = () => true, optimize = query => query) => {
   const prepared = prepareQuery(query)
   if(analyze(prepared)) {
     return gen(optimize(prepared))
