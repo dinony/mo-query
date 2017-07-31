@@ -4,7 +4,7 @@ const getValue = query => Object.values(query)[0]
 const reduce = (obj, reducer, init) => {
   let accum = init
   for(const key in obj) {
-    accum = reduce(accum, obj[key], key)
+    accum = reducer(accum, obj[key], key)
   }
   return accum
 }
