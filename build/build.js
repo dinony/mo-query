@@ -52,7 +52,6 @@ const uglifyConf = {};
 
         // eslint-disable-next-line no-console
         console.log(`${relPath(c.dest)} ${prettyBytes(code.length)}`)
-
       }
     }).catch(console.log) // eslint-disable-line no-console
 })
