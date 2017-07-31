@@ -7,19 +7,29 @@
   "unpkg": "dist/mo-query.js",
   "scripts": {
     "build": "node build/build.js",
-    "lint": "eslint src"
+    "lint": "npm run lint:src && npm run lint:build",
+    "lint:src": "eslint src",
+    "lint:build": "eslint build"
   },
-  "files": ["dist/*.js", "dist/*.js.map"],
+  "files": [
+    "dist/*.js",
+    "dist/*.js.map"
+  ],
   "keywords": [],
   "author": "Onur D. <contact@dinony.com>",
   "license": "MIT",
-  "dependencies": {},
   "devDependencies": {
     "babel-plugin-external-helpers": "^6.22.0",
     "babel-preset-latest": "^6.24.1",
     "eslint": "^4.3.0",
+    "pretty-bytes": "^4.0.2",
+    "rimraf": "^2.6.1",
     "rollup": "^0.45.2",
     "rollup-plugin-babel": "^2.7.1",
-    "rollup-plugin-node-resolve": "^3.0.0"
+    "rollup-plugin-commonjs": "^8.0.2",
+    "rollup-plugin-node-resolve": "^3.0.0",
+    "uglify-js": "^3.0.27"
+  },
+  "dependencies": {
   }
 }
