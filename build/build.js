@@ -29,7 +29,7 @@ const writeFile = (dest, code) =>
     })
   }))
 
-const uglifyConf = {output: {ascii_only: true}};
+const uglifyConf = {};
 
 [
   {dest: resolve('dist/mo-query.js'), format: 'umd'},
