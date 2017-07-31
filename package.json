@@ -1,6 +1,6 @@
 {
   "name": "mo-query",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "",
   "main": "dist/mo-query.cjs.js",
   "module": "dist/mo-query.esm.js",
@@ -29,6 +29,5 @@
     "rollup-plugin-node-resolve": "^3.0.0",
     "uglify-js": "^3.0.27"
   },
-  "dependencies": {
-  }
+  "dependencies": {}
 }
