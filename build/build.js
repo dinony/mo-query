@@ -11,7 +11,7 @@ const rimraf = require('rimraf')
 const prettyBytes = require('pretty-bytes')
 const pkg = require('../package.json')
 
-const banner = `// mo-query v${pkg.version}, Copyright (c) ${new Date().getFullYear()} ${pkg.author}, ${pkg.license}`
+const banner = `// ${pkg.name} v${pkg.version}, Copyright (c) ${new Date().getFullYear()} ${pkg.author}, ${pkg.license}`
 
 rimraf.sync('dist')
 fs.mkdirSync('dist')
