@@ -1,5 +1,14 @@
-const getOperator = query => Object.keys(query)[0]
-const getValue = query => Object.values(query)[0]
+const getOperator = query => {
+  for(const op in query) {
+    return op
+  }
+}
+
+const getValue = query => {
+  for(const op in query) {
+    return query[op]
+  }
+}
 
 const reduce = (obj, reducer, init) => {
   let accum = init
