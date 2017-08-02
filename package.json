@@ -1,6 +1,6 @@
 {
   "name": "mo-query",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "",
   "main": "dist/mo-query.cjs.js",
   "module": "dist/mo-query.esm.js",
@@ -18,7 +18,7 @@
     "dist/*.js.map"
   ],
   "engines": {
-    "node" : ">=6.10.3"
+    "node": ">=6.10.3"
   },
   "keywords": [],
   "author": "Onur Dogangönül",
