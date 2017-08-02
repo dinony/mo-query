@@ -16,15 +16,16 @@ const query = {
   ]
 }
 
-const printHeader = () => console.log(`ID\tNAME\tAGE\tPOINTS`)
-const printPlayer = p => console.log(`${p.id}\t${p.name}\t${p.age}\t${p.points}`)
+const log = console.log // eslint-disable-line no-console
+const printHeader = () => log('ID\tNAME\tAGE\tPOINTS')
+const printPlayer = p => log(`${p.id}\t${p.name}\t${p.age}\t${p.points}`)
 
 init.then(({compile}) => {
   const predFuncs = compile(query)
   const filterFunc = row => predFuncs.find(p => !p(row)) === undefined
   const queried = players.filter(filterFunc)
 
-  console.log(`Results: ${queried.length}`)
+  log(`Results: ${queried.length}`)
   printHeader()
   queried.forEach(printPlayer)
-}).catch(console.log)
+}).catch(log)

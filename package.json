@@ -7,15 +7,19 @@
   "unpkg": "dist/mo-query.umd.js",
   "scripts": {
     "build": "node build/build.js",
-    "lint": "npm run lint:src && npm run lint:build",
+    "lint": "npm run lint:src && npm run lint:build && npm run lint:demo",
     "lint:src": "eslint src",
     "lint:build": "eslint build",
+    "lint:demo": "eslint demo",
     "demo": "node demo/demo.js"
   },
   "files": [
     "dist/*.js",
     "dist/*.js.map"
   ],
+  "engines": {
+    "node" : ">=6.10.3"
+  },
   "keywords": [],
   "author": "Onur Dogangönül",
   "license": "MIT",
