@@ -20,12 +20,11 @@ const printHeader = () => console.log(`ID\tNAME\tAGE\tPOINTS`)
 const printPlayer = p => console.log(`${p.id}\t${p.name}\t${p.age}\t${p.points}`)
 
 init.then(({compile}) => {
-  const funcs = compile(query)
-
-  const filterFunc = row => funcs.find(f => !f(row)) === undefined
-
+  const predFuncs = compile(query)
+  const filterFunc = row => predFuncs.find(p => !p(row)) === undefined
   const queried = players.filter(filterFunc)
 
+  console.log(`Results: ${queried.length}`)
   printHeader()
   queried.forEach(printPlayer)
 }).catch(console.log)

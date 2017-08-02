@@ -2,7 +2,8 @@ const path = require('path')
 const SystemJS = require('systemjs')
 
 const resolveNodeModule = mod => `file://${path.resolve(__dirname, '../node_modules', mod)}`
-const resolveLibModule = filename => path.resolve(__dirname, '../src', filename)
+const resolveSrcModule = filename => path.resolve(__dirname, '../src', filename)
+const resolveDistModule = filename => path.resolve(__dirname, '../dist', filename)
 
 SystemJS.config({
   map: {
@@ -13,4 +14,5 @@ SystemJS.config({
 })
 
 // Just handle loading of the mo-query lib export
-module.exports = SystemJS.import(resolveLibModule('query.js'))
+// module.exports = SystemJS.import(resolveDistModule('mo-query.umd.min.js')) // Use dist
+module.exports = SystemJS.import(resolveSrcModule('query.js')) // Use src
