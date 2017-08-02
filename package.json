@@ -9,7 +9,8 @@
     "build": "node build/build.js",
     "lint": "npm run lint:src && npm run lint:build",
     "lint:src": "eslint src",
-    "lint:build": "eslint build"
+    "lint:build": "eslint build",
+    "demo": "node demo/demo.js"
   },
   "files": [
     "dist/*.js",
@@ -27,6 +28,8 @@
     "rollup-plugin-babel": "^2.7.1",
     "rollup-plugin-commonjs": "^8.0.2",
     "rollup-plugin-node-resolve": "^3.0.0",
+    "systemjs": "^0.20.17",
+    "systemjs-plugin-babel": "0.0.25",
     "uglify-js": "^3.0.27"
   },
   "dependencies": {}
