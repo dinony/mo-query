@@ -4,7 +4,7 @@
   "description": "",
   "main": "dist/mo-query.cjs.js",
   "module": "dist/mo-query.esm.js",
-  "unpkg": "dist/mo-query.js",
+  "unpkg": "dist/mo-query.umd.js",
   "scripts": {
     "build": "node build/build.js",
     "lint": "npm run lint:src && npm run lint:build",

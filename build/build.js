@@ -23,8 +23,8 @@ const relPath = _path => path.relative(process.cwd(), _path)
 const uglifyConf = {};
 
 [
-  {dest: resolve('dist/mo-query.js'), format: 'umd'},
-  {dest: resolve('dist/mo-query.min.js'), format: 'umd'},
+  {dest: resolve('dist/mo-query.umd.js'), format: 'umd'},
+  {dest: resolve('dist/mo-query.umd.min.js'), format: 'umd'},
   {dest: resolve('dist/mo-query.cjs.js'), format: 'cjs'},
   {dest: resolve('dist/mo-query.esm.js'), format: 'es'}
 ].map(({dest, format}) => ({
