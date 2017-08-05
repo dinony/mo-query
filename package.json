@@ -21,7 +21,7 @@
     "node": ">=6.10.3"
   },
   "keywords": [],
-  "author": "Onur Dogangönül",
+  "author": "Onur Dogangönül <contact@dinony.com>",
   "license": "MIT",
   "devDependencies": {
     "babel-preset-latest": "^6.24.1",
