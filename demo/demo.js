@@ -16,6 +16,16 @@ const query = {
   ]
 }
 
+// Supports text search similar to MongoDB
+// - $caseSensitive is false by default
+// const query = {
+//   name: {
+//     $text: {
+//       $search: 'lorena OnUr',
+//     }
+//   }
+// }
+
 const log = console.log // eslint-disable-line no-console
 const printHeader = () => log('ID\tNAME\tAGE\tPOINTS')
 const printPlayer = p => log(`${p.id}\t${p.name}\t${p.age}\t${p.points}`)

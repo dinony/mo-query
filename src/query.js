@@ -18,6 +18,8 @@ const reduce = (obj, reducer, init) => {
   return accum
 }
 
+const handleCase = (str, caseSensitive) => caseSensitive ? str : str.toUpperCase()
+
 const operators = {
   // comparison operators
   '$eq': (col, val) => row => row[col] === val,
@@ -29,16 +31,24 @@ const operators = {
   '$in': (col, values) => row => values.find(val => operators['$eq'](col, val)(row)) !== undefined,
   '$nin': (col, val) => row => !operators['$in'](col, val)(row),
   // logical operators
-  '$or': subqueries => row => {
+  '$or': subqueries => {
     const fs = subqueries.map(handleSubquery)
-    return fs.find(f => f(row)) !== undefined
+    return row => fs.find(f => f(row)) !== undefined
   },
   '$and': subqueries => row => {
     const fs = subqueries.map(handleSubquery)
     return fs.filter(f => f(row)).length === fs.length
   },
   '$not': subquery => row => !handleSubquery(subquery)(row),
-  '$nor': subqueries => row => operators['$not']({'$or': subqueries})(row)
+  '$nor': subqueries => row => operators['$not']({'$or': subqueries})(row),
+  '$text': (col, searchSpec) => {
+    const terms = searchSpec.$search.split(' ')
+    const caseSpec = searchSpec.$caseSensitive || false
+
+    return row => {
+      return terms.find(t => handleCase(row[col], caseSpec).includes(handleCase(t, caseSpec))) !== undefined
+    }
+  }
 }
 
 const handleSubquery = sub => {
