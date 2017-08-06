@@ -25,7 +25,7 @@ const get = (obj, path) => {
   const parts = path.split('.')
   if(parts.length > 1) {
     return get(obj[parts[0]], parts.slice(1, parts.length).join('.'))
-  } else {
+  } else {
     return obj[path]
   }
 }
