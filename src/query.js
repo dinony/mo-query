@@ -10,6 +10,7 @@ const getValue = query => {
   }
 }
 
+// Define reduce on obj
 const reduce = (obj, reducer, init) => {
   let accum = init
   for(const key in obj) {
@@ -18,14 +19,25 @@ const reduce = (obj, reducer, init) => {
   return accum
 }
 
+// Simple get impl (Only supports dot notation)
+// obj = {a:{b:{c:42}}}; get(obj, 'a.b.c') -> 42
+const get = (obj, path) => {
+  const parts = path.split('.')
+  if(parts.length > 1) {
+    return get(obj[parts[0]], parts.slice(1, parts.length).join('.'))
+  } else {
+    return obj[path]
+  }
+}
+
 const handleCase = (str, caseSensitive) => caseSensitive ? str : str.toUpperCase()
 
 const operators = {
   // comparison operators
-  '$eq': (col, val) => row => row[col] === val,
-  '$gt': (col, val) => row => row[col] > val,
+  '$eq': (col, val) => row => get(row, col) === val,
+  '$gt': (col, val) => row => get(row, col) > val,
   '$gte': (col, val) => row => operators['$eq'](col, val)(row) || operators['$gt'](col, val)(row),
-  '$lt': (col, val) => row => row[col] < val,
+  '$lt': (col, val) => row => get(row, col) < val,
   '$lte': (col, val) => row => operators['$eq'](col, val)(row) || operators['$lt'](col, val)(row),
   '$ne': (col, val) => row => !operators['$eq'](col, val)(row),
   '$in': (col, values) => row => values.find(val => operators['$eq'](col, val)(row)) !== undefined,
@@ -35,18 +47,19 @@ const operators = {
     const fs = subqueries.map(handleSubquery)
     return row => fs.find(f => f(row)) !== undefined
   },
-  '$and': subqueries => row => {
+  '$and': subqueries => {
     const fs = subqueries.map(handleSubquery)
-    return fs.filter(f => f(row)).length === fs.length
+    return row => fs.filter(f => f(row)).length === fs.length
   },
   '$not': subquery => row => !handleSubquery(subquery)(row),
   '$nor': subqueries => row => operators['$not']({'$or': subqueries})(row),
+  // text search
   '$text': (col, searchSpec) => {
     const terms = searchSpec.$search.split(' ')
     const caseSpec = searchSpec.$caseSensitive || false
 
     return row => {
-      return terms.find(t => handleCase(row[col], caseSpec).includes(handleCase(t, caseSpec))) !== undefined
+      return terms.find(term => handleCase(get(row, col), caseSpec).includes(handleCase(term, caseSpec))) !== undefined
     }
   }
 }
